@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 enum class EEnemyState : uint8
 {
+    //적 상태 열거형
     Idle        UMETA(DisplayName = "Idle"),
     Patrol      UMETA(DisplayName = "Patrol"),
     Attack      UMETA(DisplayName = "Attack"),
@@ -15,6 +16,7 @@ enum class EEnemyState : uint8
 UENUM(BlueprintType)
 enum class EEnemySence : uint8
 {
+    //적 감각 열거형
     None        UMETA(DisplayName = "None"),
     See         UMETA(DisplayName = "Sight"),
     Hit         UMETA(DisplayName = "Hit"),
@@ -23,6 +25,7 @@ enum class EEnemySence : uint8
 UENUM(BlueprintType)
 enum class EEnemySpeed : uint8
 {
+    //적 이동 방식 열거형 솔도 설정용
     Idle        UMETA(DisplayName = "IdleSpeed"),
     Walking     UMETA(DisplayName = "WalkingSpeed"),
     Jumping     UMETA(DisplayName = "JumpingSpeed"),

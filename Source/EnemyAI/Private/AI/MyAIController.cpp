@@ -12,11 +12,11 @@
 
 AMyAIController::AMyAIController()
 {
-    // 1. Perception 컴포넌트 생성
+    // Perception 컴포넌트 생성
     AIPerceptionComp = CreateDefaultSubobject<UAIPerceptionComponent>(TEXT("AIPerceptionComp"));
     SetPerceptionComponent(*AIPerceptionComp);
 
-    // 2. 시각(Sight) 설정
+    //시각 설정 블루프린트랑 같음
     SightConfig = CreateDefaultSubobject<UAISenseConfig_Sight>(TEXT("SightConfig"));
     SightConfig->SightRadius = 1000.0f;
     SightConfig->LoseSightRadius = 1200.0f;
@@ -26,11 +26,11 @@ AMyAIController::AMyAIController()
     SightConfig->DetectionByAffiliation.bDetectFriendlies = true;
     AIPerceptionComp->ConfigureSense(*SightConfig);
 
-    // 3. 피격(Damage) 설정 (스크린샷의 SenseHit 대응)
+    //피격 설정 이것도 블루프린트에 있음
     DamageConfig = CreateDefaultSubobject<UAISenseConfig_Damage>(TEXT("DamageConfig"));
     AIPerceptionComp->ConfigureSense(*DamageConfig);
 
-    // 지배적 감각 설정
+    // 지배적? 감각 설정
     AIPerceptionComp->SetDominantSense(SightConfig->GetSenseImplementation());
 }
 
@@ -50,11 +50,12 @@ void AMyAIController::OnPossess(APawn* InPawn)
 
     // BT 실행 (캐릭터나 컨트롤러에 BT가 할당되어 있다고 가정)
     AEnemyCharacter* Enemy = Cast<AEnemyCharacter>(InPawn);
-    // 참고: 실제로는 Enemy->BehaviorTreeAsset 등을 가져와서 RunBehaviorTree 해야 함.
+    //*실제로는 Enemy->BehaviorTreeAsset 등을 가져와서 RunBehaviorTree 해야 함.
 }
 
 EEnemyState AMyAIController::GetCurrentState() const
 {
+    //블랙보드에 있는 현재 상태를 가져옴
     if (Blackboard)
     {
         return (EEnemyState)Blackboard->GetValueAsEnum(Key_State);
@@ -64,6 +65,7 @@ EEnemyState AMyAIController::GetCurrentState() const
 
 void AMyAIController::SetStateAsAttack(AActor* TargetActor)
 {
+    //블랙보드에서 어택 상태로 바꿈
     if (Blackboard)
     {
         Blackboard->SetValueAsObject(Key_Target, TargetActor);
@@ -73,22 +75,17 @@ void AMyAIController::SetStateAsAttack(AActor* TargetActor)
 
 void AMyAIController::OnTargetPerceptionUpdated(AActor* Actor, FAIStimulus Stimulus)
 {
-    // 1. 플레이어인지 확인
     ACharacter* PlayerChar = UGameplayStatics::GetPlayerCharacter(GetWorld(), 0);
     if (Actor != PlayerChar) return;
 
-    // 2. 감각이 성공적으로 감지되었는지 확인 (Sensed)
+    //감각없으면 리턴
     if (!Stimulus.WasSuccessfullySensed()) return;
 
-    // 3. 현재 상태 확인
+    //현재 상태 확인 하고 idle이나 patrol이면 attack으로 전환 다른 상태에선 무시
     EEnemyState CurrentState = GetCurrentState();
 
-    // 4. 로직 분기 (Switch on E_State)
-    // Idle이나 Patrol 상태일 때만 Attack으로 전환
     if (CurrentState == EEnemyState::Idle || CurrentState == EEnemyState::Patrol)
     {
-        // 시각(Sight) 혹은 데미지(Damage) 인지 확인
-        // (스크린샷에서는 둘 다 비슷하게 처리하므로 통합했습니다)
         SetStateAsAttack(Actor);
     }
     // 이미 Attack, Die, Hit 상태라면 무시

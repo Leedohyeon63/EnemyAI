@@ -18,7 +18,7 @@ public:
 	UBTT_SetMovementSpeed();
 	virtual EBTNodeResult::Type ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory) override;
 protected:
-	// 에디터에서 설정할 이동 상태 (예: Idle, Walking, Sprint)
+	//얘만 인터페이스랑 연동해서 씀
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AI")
 	EEnemySpeed MovementState;
 };

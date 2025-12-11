@@ -22,37 +22,38 @@ protected:
 	virtual void BeginPlay() override;
 
 public:	
-    // 무기 클래스 (블루프린트에서 할당)
+    //착용할 무기 블루프린트에서 할당함
     UPROPERTY(EditAnywhere, Category = "Combat")
     TSubclassOf<AActor> WeaponClass;
 
-    // 현재 무기 인스턴스
+    // 현재 무기
     UPROPERTY(VisibleAnywhere, Category = "Combat")
     AActor* CurrentWeapon;
 
-    // 공격 애니메이션
+    //공격 애니메이션
     UPROPERTY(EditAnywhere, Category = "Combat")
     UAnimMontage* AttackMontage;
 
-    // 소켓 이름
+    //소켓 이름(나중에 통일할 예정)
     UPROPERTY(EditAnywhere, Category = "Combat")
     FName WeaponSocketName = TEXT("RHandSoket");
 
-    // 상태 확인용 변수 (BT 데코레이터용)
+    //상태 확인용 변수 (BT 데코레이터용)
     UPROPERTY(BlueprintReadWrite, Category = "Combat")
     bool bIsWieldingWeapon;
 
-    // -- 함수들 --
+    //무기 장착 함수 나중에 WieldWeapon으로 수정해야 함
     UFUNCTION(BlueprintCallable, Category = "Combat")
     void WieldSword();
 
+    //공격, 현재는 몽타주만 재생함
     UFUNCTION(BlueprintCallable, Category = "Combat")
     void DefaultAttack();
 
-
-
+    //이동속도 설정
     UFUNCTION(BlueprintCallable, Category = "Movement")
     void UpdateMovementSpeed(float NewSpeed);
 
+    //인터페이스 함수 오버라이드, EnumBase에 있는 열거형에 따라 상태별 속도 설정
     virtual float SetMovementSpeed_Implementation(EEnemySpeed State) override;
 };

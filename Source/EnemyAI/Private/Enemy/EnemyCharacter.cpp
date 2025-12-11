@@ -21,6 +21,7 @@ void AEnemyCharacter::BeginPlay()
 
 void AEnemyCharacter::WieldSword()
 {
+    //무기 없으면 리턴
     if (bIsWieldingWeapon || !WeaponClass) return;
 
     FActorSpawnParameters SpawnParams;
@@ -42,9 +43,7 @@ void AEnemyCharacter::DefaultAttack()
 {
     if (AttackMontage)
     {
-        PlayAnimMontage(AttackMontage);
-        // 몽타주 종료 시점 처리는 Notify나 델리게이트로 처리해야 하지만, 
-        // BT에서는 보통 Wait Task를 함께 써서 시간을 멉니다.
+        PlayAnimMontage(AttackMontage);//아직은 몽타주만
     }
 }
 
@@ -57,7 +56,7 @@ float AEnemyCharacter::SetMovementSpeed_Implementation(EEnemySpeed State)
 {
     float TargetSpeed = 0.0f;
 
-    // 블루프린트의 Select 노드와 동일한 역할을 하는 Switch 문
+    //EEnemySpeed에 따라서 속도 조절
     switch (State)
     {
     case EEnemySpeed::Idle:
@@ -80,7 +79,7 @@ float AEnemyCharacter::SetMovementSpeed_Implementation(EEnemySpeed State)
     // 실제 이동 속도 적용
     GetCharacterMovement()->MaxWalkSpeed = TargetSpeed;
 
-    // 변경된 속도 반환 (블루프린트의 Return Node 역할)
+    // 변경된 속도 반환
     return TargetSpeed;
 }
 

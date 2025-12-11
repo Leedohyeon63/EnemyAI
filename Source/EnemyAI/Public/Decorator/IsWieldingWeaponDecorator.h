@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 #include "BehaviorTree/BTDecorator.h"
 #include "IsWieldingWeaponDecorator.generated.h"
-
+//데코레이터인데 안쓸거같음
 /**
  * 
  */

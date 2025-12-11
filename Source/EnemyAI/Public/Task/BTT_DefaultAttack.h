@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 #include "BehaviorTree/BTTaskNode.h"
 #include "BTT_DefaultAttack.generated.h"
-
+//태스크는 전부 플레이어 안에 있는 함수 호출하는 방식, 거의 같음, 그래서 다른 태스크는 주석 없음
 /**
  * 
  */

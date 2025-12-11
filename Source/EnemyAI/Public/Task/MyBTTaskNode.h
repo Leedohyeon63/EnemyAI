@@ -12,6 +12,7 @@
 UCLASS()
 class ENEMYAI_API UMyBTTaskNode : public UBTTaskNode
 {
+	//테스트용 노드 나중에 씀
 	GENERATED_BODY()
 	
 };

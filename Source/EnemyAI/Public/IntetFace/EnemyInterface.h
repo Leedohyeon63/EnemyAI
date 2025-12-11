@@ -24,6 +24,7 @@ class ENEMYAI_API IEnemyInterface
 	// Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
 
+	//블루프린트에 많이 쓰던 인터페이스인데 그냥 막 cpp로 옮긴거라 굳이긴 한데 그냥 옮김
 	UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category = "AI")
 	float SetMovementSpeed(EEnemySpeed State);
 };
