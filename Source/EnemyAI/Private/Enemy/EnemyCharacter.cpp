@@ -1,0 +1,86 @@
+// Fill out your copyright notice in the Description page of Project Settings.
+
+
+#include "Enemy/EnemyCharacter.h"
+#include "Perception/PawnSensingComponent.h"
+#include "Components/CapsuleComponent.h"
+#include "GameFramework/CharacterMovementComponent.h"
+
+// Sets default values
+AEnemyCharacter::AEnemyCharacter()
+{
+
+}
+
+// Called when the game starts or when spawned
+void AEnemyCharacter::BeginPlay()
+{
+	Super::BeginPlay();
+
+}
+
+void AEnemyCharacter::WieldSword()
+{
+    if (bIsWieldingWeapon || !WeaponClass) return;
+
+    FActorSpawnParameters SpawnParams;
+    SpawnParams.Owner = this;
+    SpawnParams.Instigator = this;
+
+    // 무기 스폰
+    CurrentWeapon = GetWorld()->SpawnActor<AActor>(WeaponClass, GetActorTransform(), SpawnParams);
+
+    if (CurrentWeapon)
+    {
+        // 소켓에 부착
+        CurrentWeapon->AttachToComponent(GetMesh(), FAttachmentTransformRules::SnapToTargetNotIncludingScale, WeaponSocketName);
+        bIsWieldingWeapon = true;
+    }
+}
+
+void AEnemyCharacter::DefaultAttack()
+{
+    if (AttackMontage)
+    {
+        PlayAnimMontage(AttackMontage);
+        // 몽타주 종료 시점 처리는 Notify나 델리게이트로 처리해야 하지만, 
+        // BT에서는 보통 Wait Task를 함께 써서 시간을 멉니다.
+    }
+}
+
+void AEnemyCharacter::UpdateMovementSpeed(float NewSpeed)
+{
+    GetCharacterMovement()->MaxWalkSpeed = NewSpeed;
+}
+
+float AEnemyCharacter::SetMovementSpeed_Implementation(EEnemySpeed State)
+{
+    float TargetSpeed = 0.0f;
+
+    // 블루프린트의 Select 노드와 동일한 역할을 하는 Switch 문
+    switch (State)
+    {
+    case EEnemySpeed::Idle:
+        TargetSpeed = 0.0f;
+        break;
+    case EEnemySpeed::Walking:
+        TargetSpeed = 200.0f;
+        break;
+    case EEnemySpeed::Jumping:
+        TargetSpeed = 300.0f;
+        break;
+    case EEnemySpeed::Sprint:
+        TargetSpeed = 500.0f;
+        break;
+    default:
+        TargetSpeed = 100.0f; // 기본값
+        break;
+    }
+
+    // 실제 이동 속도 적용
+    GetCharacterMovement()->MaxWalkSpeed = TargetSpeed;
+
+    // 변경된 속도 반환 (블루프린트의 Return Node 역할)
+    return TargetSpeed;
+}
+
