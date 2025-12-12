@@ -20,7 +20,7 @@ EBTNodeResult::Type UBTT_WieldWeapon::ExecuteTask(UBehaviorTreeComponent& OwnerC
     if (!Enemy) return EBTNodeResult::Failed;
 
     // 캐릭터의 WieldSword 함수 호출
-    Enemy->WieldSword();
+    Enemy->WieldWeapon();
 
     return EBTNodeResult::Succeeded;
 }

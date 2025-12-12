@@ -5,6 +5,7 @@
 #include "Perception/PawnSensingComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "Kismet/KismetMathLibrary.h"
 
 // Sets default values
 AEnemyCharacter::AEnemyCharacter()
@@ -15,11 +16,11 @@ AEnemyCharacter::AEnemyCharacter()
 void AEnemyCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-    WieldSword();
+    WieldWeapon();
 
 }
 
-void AEnemyCharacter::WieldSword()
+void AEnemyCharacter::WieldWeapon()
 {
     //무기 없으면 리턴
     if (bIsWieldingWeapon || !WeaponClass) return;
@@ -47,10 +48,28 @@ void AEnemyCharacter::DefaultAttack()
     }
 }
 
+bool AEnemyCharacter::PlayerFocus(AActor* TargetActor, float DeltaTime, float TurnSpeed)
+{
+    FVector Start = GetActorLocation();
+    FVector End = TargetActor->GetActorLocation();
+    FRotator TargetRot = UKismetMathLibrary::FindLookAtRotation(Start, End);
+
+    FRotator CurrentRot = GetActorRotation();
+
+    FRotator NewRot = FMath::RInterpTo(CurrentRot, TargetRot, DeltaTime, TurnSpeed);
+
+    SetActorRotation(FRotator(CurrentRot.Pitch, NewRot.Yaw, CurrentRot.Roll));
+
+    float DeltaYaw = FMath::Abs(FMath::FindDeltaAngleDegrees(CurrentRot.Yaw, TargetRot.Yaw));
+
+    return DeltaYaw < 5.0f;
+}
+
 void AEnemyCharacter::UpdateMovementSpeed(float NewSpeed)
 {
     GetCharacterMovement()->MaxWalkSpeed = NewSpeed;
 }
+
 
 float AEnemyCharacter::SetMovementSpeed_Implementation(EEnemySpeed State)
 {

@@ -24,7 +24,7 @@ class ENEMYAI_API IEnemyInterface
 	// Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
 
-	//ºí·çÇÁ¸°Æ®¿¡ ¸¹ÀÌ ¾²´ø ÀÎÅÍÆäÀÌ½ºÀÎµ¥ ±×³É ¸· cpp·Î ¿Å±ä°Å¶ó ±»ÀÌ±ä ÇÑµ¥ ±×³É ¿Å±è
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì½ï¿½ï¿½Îµï¿½ ï¿½×³ï¿½ ï¿½ï¿½ cppï¿½ï¿½ ï¿½Å±ï¿½Å¶ï¿½ ï¿½ï¿½ï¿½Ì±ï¿½ ï¿½Ñµï¿½ ï¿½×³ï¿½ ï¿½Å±ï¿½
 	UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category = "AI")
 	float SetMovementSpeed(EEnemySpeed State);
 };

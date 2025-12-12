@@ -12,7 +12,7 @@
 UCLASS()
 class ENEMYAI_API UMyBTTaskNode : public UBTTaskNode
 {
-	//Å×½ºÆ®¿ë ³ëµå ³ªÁß¿¡ ¾¸
+	//ï¿½×½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ß¿ï¿½ ï¿½ï¿½
 	GENERATED_BODY()
 	
 };

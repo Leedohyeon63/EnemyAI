@@ -44,15 +44,19 @@ public:
 
     //무기 장착 함수 나중에 WieldWeapon으로 수정해야 함
     UFUNCTION(BlueprintCallable, Category = "Combat")
-    void WieldSword();
+    void WieldWeapon();
 
     //공격, 현재는 몽타주만 재생함
     UFUNCTION(BlueprintCallable, Category = "Combat")
     void DefaultAttack();
 
+    UFUNCTION(BlueprintCallable, Category = "Combat")
+    bool PlayerFocus(AActor* TargetActor, float DeltaTime, float TurnSpeed);
+
     //이동속도 설정
     UFUNCTION(BlueprintCallable, Category = "Movement")
     void UpdateMovementSpeed(float NewSpeed);
+
 
     //인터페이스 함수 오버라이드, EnumBase에 있는 열거형에 따라 상태별 속도 설정
     virtual float SetMovementSpeed_Implementation(EEnemySpeed State) override;

@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 enum class EEnemyState : uint8
 {
-    //Àû »óÅÂ ¿­°ÅÇü
+    //ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     Idle        UMETA(DisplayName = "Idle"),
     Patrol      UMETA(DisplayName = "Patrol"),
     Attack      UMETA(DisplayName = "Attack"),
@@ -16,7 +16,7 @@ enum class EEnemyState : uint8
 UENUM(BlueprintType)
 enum class EEnemySence : uint8
 {
-    //Àû °¨°¢ ¿­°ÅÇü
+    //ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     None        UMETA(DisplayName = "None"),
     See         UMETA(DisplayName = "Sight"),
     Hit         UMETA(DisplayName = "Hit"),
@@ -25,7 +25,7 @@ enum class EEnemySence : uint8
 UENUM(BlueprintType)
 enum class EEnemySpeed : uint8
 {
-    //Àû ÀÌµ¿ ¹æ½Ä ¿­°ÅÇü ¼Öµµ ¼³Á¤¿ë
+    //ï¿½ï¿½ ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Öµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     Idle        UMETA(DisplayName = "IdleSpeed"),
     Walking     UMETA(DisplayName = "WalkingSpeed"),
     Jumping     UMETA(DisplayName = "JumpingSpeed"),
